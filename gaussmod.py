@@ -14,17 +14,17 @@ class Sampler:
 
 class GaussianMod:
     ''' Класс с уравнением плоской волны для модулированного гауссова сигнала в дискретном виде
-    d - определяет задержку сигнала.
-    w - определяет ширину сигнала.
+    dg - коэффициент, задающий начальную задержку гауссова импульса;
+    wg - коэффициент, задающий ширину гауссова импульса.
     Nl - количество ячеек на длину волны.
     Sc - число Куранта.
     eps - относительная диэлектрическая проницаемость среды, в которой расположен источник.
     mu - относительная магнитная проницаемость среды, в которой расположен источник.
     '''
 
-    def __init__(self, d, w, Nl, Sc=1.0, eps=1.0, mu=1.0):
-        self.d = d
-        self.w = w
+    def __init__(self, dg, wg, Nl, Sc=1.0, eps=1.0, mu=1.0):
+        self.dg = dg
+        self.wg = wg
         self.Nl = Nl
         self.Sc = Sc
         self.eps = eps
@@ -36,7 +36,7 @@ class GaussianMod:
         в дискретный момент времени q
         '''
         return (np.sin(2 * np.pi / self.Nl * (q * self.Sc - m * np.sqrt(self.eps * self.mu))) *
-                np.exp(-(((q - m * np.sqrt(self.eps * self.mu) / self.Sc) - self.d) / self.w) ** 2))
+                np.exp(-(((q - m * np.sqrt(self.eps * self.mu) / self.Sc) - self.dg) / self.wg) ** 2))
 
 
 if __name__ == '__main__':
@@ -67,7 +67,6 @@ if __name__ == '__main__':
     # Положение источника в отсчетах
     sourcePos = int(maxSize / 2)
 
-    
 
     # Параметры среды
     # Диэлектрическая проницаемость
@@ -151,14 +150,14 @@ if __name__ == '__main__':
 
     # Расчёт спектра сигнала
     sp = fftshift(np.abs(fft(probe.E)))
-    # Рассчёт шага частоты
+    # Расчёт шага частоты
     df = 1.0 / (maxTime * dt)
-    # Рассчёт частотной сетки
+    # Расчёт частотной сетки
     freq = np.arange(-maxTime/ 2 , maxTime / 2 ) * df
-    # Оформляем сетку
+    # Оформление сетки
     tlist = np.arange(0, maxTime * dt, dt) 
 
-    # Вывод сигнала и спектра зарегестрированых в пробнике
+    # Вывод сигнала и спектра зарегистрированых в пробнике
     fig, (ax1, ax2) = plt.subplots(2, 1)
     ax1.set_xlim(0, 20e-9)
     ax1.set_ylim(-1.4, 1.4)
@@ -170,7 +169,7 @@ if __name__ == '__main__':
     ax2.set_xlim(0, 1e10)
     ax2.set_ylim(-0.1, 1.1)
     ax2.set_xlabel('f, Гц')
-    ax2.set_ylabel('|S| / |Smax|, б/р')
+    ax2.set_ylabel('|S| / |Smax|')
     ax2.plot(freq, sp / np.max(sp))
     ax2.minorticks_on()
     ax2.grid()

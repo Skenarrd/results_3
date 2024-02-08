@@ -91,8 +91,7 @@ class AnimateFieldDisplay:
         сигналов (в отсчетах).
         '''
         # Отобразить положение пробников
-        self._ax.plot([i * self.dx for i in probesPos], [0] * len(probesPos),
-                       self._probeStyle)
+        self._ax.plot([i * self.dx for i in probesPos], [0] * len(probesPos), self._probeStyle)
 
     def drawSources(self, sourcesPos: List[int]):
         '''

@@ -139,6 +139,7 @@ if __name__ == '__main__':
 
         Ez[-1] = oldEzRight + koeffABCRight * (Ez[-2] - Ez[-1])
         oldEzRight = Ez[-2]
+        
         # Регистрация поля в пробниках
         for probe in probes:
             probe.addData(Ez, Hy)

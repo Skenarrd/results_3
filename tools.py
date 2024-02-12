@@ -19,7 +19,7 @@ class Probe:
         self.E = np.zeros(maxTime)
         self.H = np.zeros(maxTime)
 
-        # Номер временного шага для сохранения полей
+        # Номер временного шага для cохранения полей
         self._time = 0
 
     def addData(self, E: List[float], H: List[float]):

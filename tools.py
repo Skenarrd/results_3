@@ -191,7 +191,7 @@ class FFT:
         fig, ax = pylab.subplots()
         # Настройка внешнего вида графиков
         ax.plot(self._freq, self.z / np.max(self.z))
-        ax.set_xlim(3e9, 8e9)
+        ax.set_xlim(0, 9e9)
         ax.set_xlabel('Частота, Гц')
         ax.set_ylabel('|S| / |Smax|')
         ax.grid()

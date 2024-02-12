@@ -50,13 +50,13 @@ if __name__ == '__main__':
     c = sycon.c
 
     # Время расчета в отсчетах
-    maxTime = 1500
+    maxTime = 4000
 
     # Размер области моделирования вдоль оси X в метрах
-    X = 1.5
+    X = 2.5
     
     #Размер ячейки разбиения
-    dx = 4e-3
+    dx = 1e-3
 
     # Размер области моделирования в отсчетах
     maxSize = int(X / dx)
@@ -85,10 +85,10 @@ if __name__ == '__main__':
     probes = [tools.Probe(pos, maxTime) for pos in probesPos]
 
     # Скорость обновления графика поля
-    speed_refresh = 25
+    speed_refresh = 100
     
 
-    source = GaussianMod(250, 100, 200, eps[sourcePos], mu[sourcePos])
+    source = GaussianMod(350, 100, 220, eps[sourcePos], mu[sourcePos])
 
     # Ez[1] в предыдущий момент времени
     oldEzLeft = Ez[1]
@@ -160,14 +160,14 @@ if __name__ == '__main__':
 
     # Вывод сигнала и спектра зарегистрированых в пробнике
     fig, (ax1, ax2) = plt.subplots(2, 1)
-    ax1.set_xlim(0, 20e-9)
+    ax1.set_xlim(0, 10e-9)
     ax1.set_ylim(-1.4, 1.4)
     ax1.set_xlabel('t, с')
     ax1.set_ylabel('Ez, В/м')
     ax1.plot(tlist, probe.E)
     ax1.minorticks_on()
     ax1.grid()
-    ax2.set_xlim(0, 1e10)
+    ax2.set_xlim(2.5e9, 8.5e9)
     ax2.set_ylim(-0.1, 1.1)
     ax2.set_xlabel('f, Гц')
     ax2.set_ylabel('|S| / |Smax|')
